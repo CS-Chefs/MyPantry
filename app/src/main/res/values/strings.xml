@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">MyPantry</string>
+    <string name="api_key">f99342d3eaa2473ab7d88483dae2b6ac</string>
+
     <string name="welcome_to_mypantry">Welcome to MyPantry!</string>
+<<<<<<< HEAD
+    <string name="grocery_list">Grocery List</string>
+    <string name="checkbox1">Eggs</string>
+    <string name="checkbox2">Bacon</string>
+    <string name="checkbox3">Potatoes</string>
+    <string name="checkbox4">Dog Food</string>
+    <string name="button1">Add</string>
+=======
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+>>>>>>> b9ef119 (added fragments and navigation bar)
 </resources>
