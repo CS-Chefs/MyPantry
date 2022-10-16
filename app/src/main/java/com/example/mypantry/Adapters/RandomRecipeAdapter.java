@@ -15,14 +15,13 @@ import com.example.mypantry.Models.Recipe;
 import com.example.mypantry.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHolder>{
     Context context;
     List<Recipe> list;
 
-    public RandomRecipeAdapter(Context context, List<Recipe> List) {
+    public RandomRecipeAdapter(Context context, List<Recipe> list) {
         this.context = context;
         this.list = list;
     }
@@ -53,6 +52,7 @@ class RandomRecipeViewHolder extends RecyclerView.ViewHolder {
     CardView random_list_container;
     TextView textView_title, textView_servings, textView_likes, textView_time;
     ImageView imageView_food;
+
     public RandomRecipeViewHolder(@NonNull View itemView) {
         super(itemView);
         random_list_container = itemView.findViewById(R.id.random_list_container);
