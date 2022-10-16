@@ -132,3 +132,18 @@ Each team member is assigned a role on the MyPantry **Architecture & Design** do
 4. **Zachary Padalino:** User Interface Design
 5. **Alexander Sanchez:** Process Descriptions (Revisions and Updates)
 6. **EVERYONE:** Use Case Specification Achievement
+
+## October 14, 2022
+
+### Previous Goals:
+- Watch tutorials on Android Studio
+- Pull recipes from an online database
+  - **OR** create a sample database using Android Studio's **SQLite**
+- Create a layout within each app page
+- Merge branches when complete
+
+### Progress and Issues:
+Almost everyone should be able to have a basic layout of their designed page complete. For now, we're sticking with creating a sample database using **SQLite**. We will focus on pushing the UI and overall functionality to master branch when complete, as well as directing a page to one another. Everyone should have their layout named activity_(page).xml. Example: **activity_pantryinventory.xml**
+
+### Next Weeks goals:
+Pull all finished layouts into one file, work on **Architecture & Design** document, finish the created database.
