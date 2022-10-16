@@ -51,7 +51,7 @@ public class RecipiesFragment extends Fragment {
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
-            //dialog.dismiss();
+            dialog.dismiss();
             recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
