@@ -149,3 +149,27 @@ Almost everyone should be able to have a basic layout of their designed page com
 - Pull all finished layouts into one file
 - Work on **Architecture & Design** document
 - Finish the created database.
+
+
+## October 21, 2022
+
+### Previous Goals:
+- Pull all finished layouts into one file
+- Work on **Architecture & Design** document
+- Finish the created database.
+
+### Progress and Issues:
+Almost all layouts are done and almost every page will have some kind of functionality ready by next week. I have *miswrote* about our database being a sample, instead the database will be pulled from online sources. Alex Sanchez has got our Navigation bar to work universally across pages, as well as implementing the API for our database.
+
+### Next Weeks goals:
+- Create and finish the **Architecture & Design** document to be due by **Oct 24**. 
+Updated roles:
+1. **Ethan Forsha:** Software Architecture
+2. **EVERYONE:** Use Case Specification Achievement
+3. **Thomas Birt:** Component Design
+4. **Tanner Dull:** Coding Guidelines
+5. **Zachary Padalino:** User Interface Design
+6. **Alexander Sanchez:** Process Descriptions (Revisions and Updates)
+
+- Basic functionality will be implemented by then.
+- Implement the database from online for user information **(including factories!)** :smiley: :flushed: :flushed:
