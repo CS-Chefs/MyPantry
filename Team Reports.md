@@ -93,3 +93,83 @@ We will have published the MyPantry Requirements document and look forward towar
 - **Tanner Dull:** SRS product description, browse recipes requirement, add calories requirement, view calories requirement, and view recipe requirement.
 - **Thomas Birt:** Weekly team reports, SRS external requirements, edit item requirement, checkoff item requirement, wattage converter requirement, and low ingredient notification requirement.
 - **Zachary Padalino:** SRS nonfunctional and other requirements, use recipe requirement, and add custom recipe requirement.
+
+## October 7, 2022
+
+### Previous Goals:
+We will have published the MyPantry Requirements document and look forward towards the architecture and design of MyPantry. Each team member is assigned a role on the MyPantry application (*subject to change*):
+
+- **Alexander Sanchez:** SRS team process description, editable ingredients list requirement, preferences/filter requirement.
+- **Ethan Forsha:** SRS introduction, formatting, create account requirement, login requirement, add item requirement, delete item requirement, view inventory requirement, and expiration date requirement.
+- **Tanner Dull:** SRS product description, browse recipes requirement, add calories requirement, view calories requirement, and view recipe requirement.
+- **Thomas Birt:** Weekly team reports, SRS external requirements, edit item requirement, checkoff item requirement, wattage converter requirement, and low ingredient notification requirement.
+- **Zachary Padalino:** SRS nonfunctional and other requirements, use recipe requirement, and add custom recipe requirement.
+
+### Progress and Issues:
+We have each created a new branch on our newly pinned GitHub repository (*not able to work on old repository without Android Studio files added*), assigned ourselves each a role on designing each application page & document, visualized each sketch on our Login, Home, Grocery List, and Pantry Inventory page including every feature implemented in each page.
+
+### Next Weeks goals:
+- Watch tutorials on Android Studio
+- Pull recipes from an online database
+  - **OR** create a sample database using Android Studio's **SQLite**
+- Create a layout within each app page
+- Merge branches when complete
+
+#### Assigned Roles
+Each team member is assigned a role on the following application pages to be designed:
+
+- **Thomas Birt:** Grocery List
+- **Ethan Forsha:** Pantry Inventory
+- **Alexander Sanchez:** Primary Recipe Database
+- **Zachary Padalino:** User Profile, Login, Create Account
+- **Tanner Dull:** Home page, Recipes page
+
+Each team member is assigned a role on the MyPantry **Architecture & Design** document:
+
+1. **Ethan Forsha:** Software Architecture
+2. **Tanner Dull:** Coding Guidelines
+3. **Thomas Birt:** Component Design
+4. **Zachary Padalino:** User Interface Design
+5. **Alexander Sanchez:** Process Descriptions (Revisions and Updates)
+6. **EVERYONE:** Use Case Specification Achievement
+
+## October 14, 2022
+
+### Previous Goals:
+- Watch tutorials on Android Studio
+- Pull recipes from an online database
+  - **OR** create a sample database using Android Studio's **SQLite**
+- Create a layout within each app page
+- Merge branches when complete
+
+### Progress and Issues:
+Almost everyone should be able to have a basic layout of their designed page complete. For now, we're sticking with creating a sample database using **SQLite**. We will focus on pushing the UI and overall functionality to master branch when complete, as well as directing a page to one another. Everyone should have their layout named activity_(page).xml. Example: **activity_pantryinventory.xml**
+
+### Next Weeks goals:
+- Pull all finished layouts into one file
+- Work on **Architecture & Design** document
+- Finish the created database.
+
+
+## October 21, 2022
+
+### Previous Goals:
+- Pull all finished layouts into one file
+- Work on **Architecture & Design** document
+- Finish the created database.
+
+### Progress and Issues:
+Almost all layouts are done and almost every page will have some kind of functionality ready by next week. I have *miswrote* about our database being a sample, instead the database will be pulled from online sources. Alex Sanchez has got our Navigation bar to work universally across pages, as well as implementing the API for our database.
+
+### Next Weeks goals:
+- Create and finish the **Architecture & Design** document to be due by **Oct 24**. 
+Updated roles:
+1. **Ethan Forsha:** Software Architecture
+2. **EVERYONE:** Use Case Specification Achievement
+3. **Thomas Birt:** Component Design
+4. **Tanner Dull:** Coding Guidelines
+5. **Zachary Padalino:** User Interface Design
+6. **Alexander Sanchez:** Process Descriptions (Revisions and Updates)
+
+- Basic functionality will be implemented by then.
+- Implement the database from online for user information **(including factories!)** :smiley: :flushed: :flushed:
