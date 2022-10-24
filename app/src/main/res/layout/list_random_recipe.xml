@@ -48,7 +48,7 @@
                     android:id="@+id/textView_servings"
                     android:textSize="14sp"
                     android:padding="8dp"
-                    android:text="2 Persons"
+                    android:text="# Servings"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -67,7 +67,7 @@
                     android:id="@+id/textView_likes"
                     android:textSize="14sp"
                     android:padding="8dp"
-                    android:text="2 Persons"
+                    android:text="# Likes"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -86,7 +86,7 @@
                     android:id="@+id/textView_time"
                     android:textSize="14sp"
                     android:padding="8dp"
-                    android:text="2 Persons"
+                    android:text="# Time"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
