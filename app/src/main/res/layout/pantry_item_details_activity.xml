@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewNameHeader"
+        android:text="Item Name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="105dp"
+        android:id="@+id/viewName"
+        android:layout_below="@+id/viewNameHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="25sp"
+        android:textColor="@android:color/black"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/viewDetailsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="25dp"
+        android:text="Item Details"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="105dp"
+        android:id="@+id/viewDetails"
+        android:layout_below="@+id/viewDetailsHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="25sp"
+        android:textColor="@android:color/black"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"/>
+
+    <Button
+        android:layout_height="80dp"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:id="@+id/viewItemEditBtn"
+        android:text="Edit Details"
+        android:textStyle="bold"
+        android:layout_below="@+id/viewdetailsduedate"/>
+
+
+</LinearLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/etEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/etDetails"
+        android:layout_alignRight="@+id/etDetails"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Item name"
+        android:minHeight="48dp"
+        android:text="@string/editPantryItemText" />
+
+    <EditText
+        android:id="@+id/etDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etEditText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:hint="Add some details about the item."
+        android:minHeight="48dp" />
+
+    <Button
+        android:layout_height="50dp"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:text="save"
+        android:id="@+id/btnSave"
+        android:textStyle="bold"
+        android:onClick="onSaveBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+
+    <!--<Spinner-->
+        <!--android:id="@+id/etPriority"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/priority_arrays"-->
+        <!--android:prompt="@string/priority_prompt"-->
+        <!--android:layout_alignRight="@+id/datePicker"-->
+        <!--android:layout_alignEnd="@+id/datePicker"-->
+        <!--android:layout_below="@+id/etEditText"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/save"-->
+        <!--android:id="@+id/btnSave"-->
+        <!--android:onClick="onSaveBtn"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true" />-->
+
+
+    <!--<DatePicker-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/datePicker"-->
+        <!--android:layout_below="@+id/etPriority"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:calendarViewShown="false"/>-->
+
+    <!--<TimePicker-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/timePicker"-->
+        <!--android:layout_below="@+id/datePicker"-->
+        <!--android:layout_above="@+id/btnSave" />-->
+
+
+</RelativeLayout>

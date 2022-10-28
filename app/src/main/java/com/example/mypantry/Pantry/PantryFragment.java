@@ -36,7 +36,7 @@ public class PantryFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment PantryFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static PantryFragment newInstance(String param1, String param2) {
@@ -61,6 +61,6 @@ public class PantryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pantry, container, false);
+        return inflater.inflate(R.layout.pantry_main_activity, container, false);
     }
 }
