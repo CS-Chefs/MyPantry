@@ -173,3 +173,25 @@ Updated roles:
 
 - Basic functionality will be implemented by then.
 - Implement the database from online for user information **(including factories!)** :smiley: :flushed: :flushed:
+
+## October 28, 2022
+
+### Previous Goals:
+- Create and finish the **Architecture & Design** document to be due by **Oct 24**. 
+- Basic functionality will be implemented by then.
+- Implement the database from online for user information **(including factories!)** :smiley: :flushed: :flushed:
+
+### Progress and Issues:
+- **Architecture & Design** document complete
+- Continued working on page functionalities to be stable
+
+### Each branches' roles
+- **Thomas Birt:** Grocery List
+- **Ethan Forsha:** Pantry Inventory
+- **Alexander Sanchez:** Primary Recipe Database
+- **Zachary Padalino:** User Profile, Login, Create Account
+- **Tanner Dull:** Home page, Recipes page
+
+### Next week's goals: 
+- Merge all branches
+- Begin testing
