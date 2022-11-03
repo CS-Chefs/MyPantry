@@ -1,10 +1,11 @@
-package com.example.mypantry.Recipies;
+package com.example.mypantry.Recipes;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mypantry.Adapters.RandomRecipeAdapter;
@@ -22,28 +21,50 @@ import com.example.mypantry.Models.RandomRecipeApiResponse;
 import com.example.mypantry.R;
 import com.example.mypantry.RequestManager;
 
-public class RecipiesFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RecipesFragment extends Fragment {
     ProgressDialog dialog;
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
     RecyclerView recyclerView;
+    SearchView searchView;
+    List<String> tags = new ArrayList<>();
 
-    public RecipiesFragment() {
+    public RecipesFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
 
-        View view = inflater.inflate(R.layout.fragment_recipies, container,false);
+        View view = inflater.inflate(R.layout.fragment_recipes, container,false);
 
         dialog = new ProgressDialog(getActivity());
         dialog.setTitle("Loading...");
 
+        searchView = view.findViewById(R.id.searchView_home);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                tags.clear();
+                tags.add(query);
+                manager.getRandomRecipes(randomRecipeResponseListener, tags);
+                dialog.show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         manager = new RequestManager(getActivity());
-        manager.getRandomRecipes(randomRecipeResponseListener);
+        manager.getRandomRecipes(randomRecipeResponseListener, tags);
         dialog.show();
         return view;
     }
@@ -52,7 +73,7 @@ public class RecipiesFragment extends Fragment {
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
             dialog.dismiss();
-            recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_random);
+            recyclerView = requireView().findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
             randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes);

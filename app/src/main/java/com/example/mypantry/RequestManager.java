@@ -5,7 +5,7 @@ import android.content.Context;
 import com.example.mypantry.Listeners.RandomRecipeResponseListener;
 import com.example.mypantry.Models.RandomRecipeApiResponse;
 
-import java.util.Random;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,13 +22,11 @@ public class RequestManager {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public RequestManager(Context context) {
-        this.context = context;
-    }
+    public RequestManager(Context context) { this.context = context; }
 
-    public void getRandomRecipes(RandomRecipeResponseListener listener){
+    public void getRandomRecipes(RandomRecipeResponseListener listener, List<String> tags){
         CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
-        Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_key), "10");
+        Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_key), "20", tags);
         call.enqueue(new Callback<RandomRecipeApiResponse>() {
             @Override
             public void onResponse(Call<RandomRecipeApiResponse> call, Response<RandomRecipeApiResponse> response) {
@@ -50,7 +48,8 @@ public class RequestManager {
         @GET("recipes/random")
         Call<RandomRecipeApiResponse> callRandomRecipe(
                @Query("apiKey") String apiKey,
-                @Query("number") String number
+                @Query("number") String number,
+               @Query("tags") List<String> tags
         );
     }
 }
