@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +21,16 @@ import com.example.mypantry.Models.RandomRecipeApiResponse;
 import com.example.mypantry.R;
 import com.example.mypantry.RequestManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RecipesFragment extends Fragment {
     ProgressDialog dialog;
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
     RecyclerView recyclerView;
+    SearchView searchView;
+    List<String> tags = new ArrayList<>();
 
     public RecipesFragment() {
         // Required empty public constructor
@@ -40,8 +46,25 @@ public class RecipesFragment extends Fragment {
         dialog = new ProgressDialog(getActivity());
         dialog.setTitle("Loading...");
 
+        searchView = view.findViewById(R.id.searchView_home);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                tags.clear();
+                tags.add(query);
+                manager.getRandomRecipes(randomRecipeResponseListener, tags);
+                dialog.show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         manager = new RequestManager(getActivity());
-        manager.getRandomRecipes(randomRecipeResponseListener);
+        manager.getRandomRecipes(randomRecipeResponseListener, tags);
         dialog.show();
         return view;
     }
