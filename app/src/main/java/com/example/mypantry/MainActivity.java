@@ -10,7 +10,8 @@ import android.os.Bundle;
 import com.example.mypantry.GroceryList.GroceryListFragment;
 import com.example.mypantry.Pantry.PantryFragment;
 import com.example.mypantry.Profile.ProfileFragment;
-import com.example.mypantry.Recipes.RecipesFragment;
+import com.example.mypantry.Recipes.RandomRecipesOptionFragment;
+import com.example.mypantry.Recipes.RecipesMainFragment;
 import com.example.mypantry.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new RecipesFragment());
+        replaceFragment(new RecipesMainFragment());
         /*
         TO DO:
         1. ADD WAY TO DEFAULT LOGIN SCREEN WHEN NOT LOGGED IN ALREADY
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new ProfileFragment());
                     break;
                 case R.id.Recipes:
-                    replaceFragment(new RecipesFragment());
+                    replaceFragment(new RecipesMainFragment());
                     break;
 
             }

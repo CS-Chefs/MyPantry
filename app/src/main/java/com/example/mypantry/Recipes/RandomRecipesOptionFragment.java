@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +25,7 @@ import com.example.mypantry.RequestManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipesFragment extends Fragment {
+public class RandomRecipesOptionFragment extends Fragment {
     ProgressDialog dialog;
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
@@ -32,7 +33,7 @@ public class RecipesFragment extends Fragment {
     SearchView searchView;
     List<String> tags = new ArrayList<>();
 
-    public RecipesFragment() {
+    public RandomRecipesOptionFragment() {
         // Required empty public constructor
     }
 
@@ -67,6 +68,7 @@ public class RecipesFragment extends Fragment {
         manager.getRandomRecipes(randomRecipeResponseListener, tags);
         dialog.show();
         return view;
+
     }
 
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
@@ -85,5 +87,7 @@ public class RecipesFragment extends Fragment {
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         }
     };
+
+
 
 }
