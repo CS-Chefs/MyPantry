@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
+    // GLOBAL VARIABLES FOR COMMENTD OUT CODE BELOW
     //private static final int SPLASH = 2000;
-
     //Animation topAnim, bottomAnim;
     //ImageView imageView;
     //TextView textView;
@@ -26,35 +26,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-        TO DO:
-        1. ADD WAY TO DISPLAY SPLASH SCREEN FIRST THEN PROCEED TO LOGIN PAGE
-        2. DISPLAY HOME SCREEN AFTER SUCCESSFUL LOGIN WITH NAV BAR
-        */
-
-        // THIS CODE LOADS SPLASH SCREEN FIRST, BUT CRASHES DUE TO THE NAVBAR MENU TRYING TO DISPLAY
-        /*
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_open_app);
-
-        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
-        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
-        imageView = findViewById(R.id.imageView);
-        textView = findViewById(R.id.text);
-
-        imageView.setAnimation(topAnim);
-        textView.setAnimation(bottomAnim);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        },SPLASH);
-        */
-
         // THIS CODE WORKS BUT LOADS INTO RECIPES PAGE IMMEDIATELY, MAKING USER DATABASE NOT EVEN LOAD
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -79,6 +50,35 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
+        /*
+        TO DO:
+        1. ADD WAY TO DISPLAY SPLASH SCREEN FIRST THEN PROCEED TO LOGIN PAGE
+        2. DISPLAY HOME SCREEN AFTER SUCCESSFUL LOGIN WITH NAV BAR AT BOTTOM
+        */
+
+        /*
+        // THIS CODE LOADS SPLASH SCREEN FIRST, BUT CRASHES DUE TO THE NAVBAR MENU TRYING TO DISPLAY
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_open_app);
+
+        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
+        imageView = findViewById(R.id.imageView);
+        textView = findViewById(R.id.text);
+
+        imageView.setAnimation(topAnim);
+        textView.setAnimation(bottomAnim);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        },SPLASH);
+        */
     }
 
     private void replaceFragment(Fragment fragment) {
