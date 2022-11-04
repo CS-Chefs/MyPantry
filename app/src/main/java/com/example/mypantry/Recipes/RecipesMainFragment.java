@@ -9,6 +9,8 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentManager;
+
 
 import com.example.mypantry.R;
 
@@ -27,10 +29,11 @@ public class RecipesMainFragment extends Fragment {
         gotoRandomRecipesSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment RandomRecipesSearch = new RandomRecipesOptionFragment();
-                FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                fm.replace(android.R.id.content, RandomRecipesSearch).commit();
 
+                Fragment RandomRecipesSearch = new RandomRecipesOptionFragment();
+                FragmentTransaction fragmentTrans = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTrans.replace(R.id.frame_layout, RandomRecipesSearch);
+                fragmentTrans.commit();
             }
         });
 

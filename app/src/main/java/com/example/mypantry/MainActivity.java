@@ -24,12 +24,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new RecipesMainFragment());
-        /*
-        TO DO:
-        1. ADD WAY TO DEFAULT LOGIN SCREEN WHEN NOT LOGGED IN ALREADY
-        2. ADD EACH FRAGMENTS UNIQUE LAYOUT
-        3. ADD FUNCTIONALITY TO EACH FRAGMENT
-         */
+
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -47,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.Recipes:
                     replaceFragment(new RecipesMainFragment());
                     break;
-
             }
 
             return true;
