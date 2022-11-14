@@ -38,7 +38,8 @@ public class RandomRecipesOptionFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
 
@@ -59,9 +60,7 @@ public class RandomRecipesOptionFragment extends Fragment {
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
+            public boolean onQueryTextChange(String newText) { return false;}
         });
 
         manager = new RequestManager(getActivity());
@@ -71,7 +70,8 @@ public class RandomRecipesOptionFragment extends Fragment {
 
     }
 
-    private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+    private final RandomRecipeResponseListener randomRecipeResponseListener =
+            new RandomRecipeResponseListener() {
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
             dialog.dismiss();

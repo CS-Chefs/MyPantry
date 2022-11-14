@@ -2,6 +2,7 @@ package com.example.mypantry.Recipes;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mypantry.Adapters.RandomRecipeAdapter;
-import com.example.mypantry.Listeners.RandomRecipeResponseListener;
-import com.example.mypantry.Models.RandomRecipeApiResponse;
+import com.example.mypantry.Adapters.ComplexRecipeAdapter;
+import com.example.mypantry.Listeners.ComplexRecipeResponseListener;
+import com.example.mypantry.Models.ComplexRecipeApiResponse;
 import com.example.mypantry.R;
 import com.example.mypantry.RequestManager;
 
@@ -26,7 +27,7 @@ import java.util.List;
 public class ComplexRecipeSearchOptionFragment extends Fragment {
     ProgressDialog dialog;
     RequestManager manager;
-    RandomRecipeAdapter randomRecipeAdapter;
+    ComplexRecipeAdapter complexRecipeAdapter;
     RecyclerView recyclerView;
     SearchView searchView;
     List<String> tags = new ArrayList<>();
@@ -36,7 +37,8 @@ public class ComplexRecipeSearchOptionFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
 
@@ -51,33 +53,30 @@ public class ComplexRecipeSearchOptionFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 tags.clear();
                 tags.add(query);
-                manager.getRandomRecipes(randomRecipeResponseListener, tags);
+                manager.getComplexRecipes(complexRecipeResponseListener, tags);
                 dialog.show();
                 return true;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
+            public boolean onQueryTextChange(String newText) { return false;}
         });
-
         manager = new RequestManager(getActivity());
-        manager.getRandomRecipes(randomRecipeResponseListener, tags);
+        manager.getComplexRecipes(complexRecipeResponseListener, tags);
         dialog.show();
         return view;
-
     }
 
-    private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+    private final ComplexRecipeResponseListener complexRecipeResponseListener =
+            new ComplexRecipeResponseListener() {
         @Override
-        public void didFetch(RandomRecipeApiResponse response, String message) {
+        public void didFetch(ComplexRecipeApiResponse response, String message) {
             dialog.dismiss();
             recyclerView = requireView().findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-            randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes);
-            recyclerView.setAdapter(randomRecipeAdapter);
+            complexRecipeAdapter = new ComplexRecipeAdapter(getActivity(), response.results);
+            recyclerView.setAdapter(complexRecipeAdapter);
         }
 
         @Override

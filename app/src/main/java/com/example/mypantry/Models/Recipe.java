@@ -23,7 +23,7 @@ public class Recipe {
     public String sourceName;
     public String pricePerServing;
     public ArrayList<ExtendedIngredient> extendedIngredients;
-    public int ld;
+    public int id;
     public String title;
     public int readyInMinutes;
     public int servings;

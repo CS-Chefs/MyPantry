@@ -11,30 +11,31 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mypantry.Models.Recipe;
+import com.example.mypantry.Models.Result;
 import com.example.mypantry.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHolder>{
+public class ComplexRecipeAdapter extends RecyclerView.Adapter<ComplexRecipeViewHolder>{
     Context context;
-    List<Recipe> list;
+    List<Result> list;
 
-    public RandomRecipeAdapter(Context context, List<Recipe> list) {
+    public ComplexRecipeAdapter(Context context, List<Result> list) {
         this.context = context;
         this.list = list;
     }
 
     @NonNull
     @Override
-    public RandomRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RandomRecipeViewHolder(LayoutInflater.
-                from(context).inflate(R.layout.list_random_recipe, parent, false));
+    public ComplexRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ComplexRecipeViewHolder(LayoutInflater
+                .from(context).
+                inflate(R.layout.list_random_recipe, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RandomRecipeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ComplexRecipeViewHolder holder, int position) {
         holder.textView_title.setText(list.get(position).title);
         holder.textView_title.setSelected(true);
         holder.textView_likes.setText(list.get(position).aggregateLikes+" Likes");
@@ -49,12 +50,12 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
     }
 }
 
-class RandomRecipeViewHolder extends RecyclerView.ViewHolder {
+class ComplexRecipeViewHolder extends RecyclerView.ViewHolder {
     CardView random_list_container;
     TextView textView_title, textView_servings, textView_likes, textView_time;
     ImageView imageView_food;
 
-    public RandomRecipeViewHolder(@NonNull View itemView) {
+    public ComplexRecipeViewHolder(@NonNull View itemView) {
         super(itemView);
         random_list_container = itemView.findViewById(R.id.random_list_container);
         textView_title = itemView.findViewById(R.id.textView_title);
