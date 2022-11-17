@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "434844358376",
+    "project_id": "mypantry-30791",
+    "storage_bucket": "mypantry-30791.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434844358376:android:f008c955f2485b7a47db5d",
+        "android_client_info": {
+          "package_name": "com.example.mypantry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "434844358376-18u94102969js5c61u02m1bbg37v8isi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj-dGvoQ2AUCNVjNWErFdRBCYJsSTjY1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "434844358376-18u94102969js5c61u02m1bbg37v8isi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
