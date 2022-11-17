@@ -195,3 +195,27 @@ Updated roles:
 ### Next week's goals: 
 - Merge all branches
 - Begin testing
+
+
+## November 4, 2022
+
+### Previous Goals:
+- Merge all branches
+- Begin testing
+
+### Progress and Issues:
+- Working on search function for recipes
+- Trying to add Filtered ingredients
+
+- Merging issues
+- Navigation bar will crash on login when it's not supposed to.
+
+### Testing document roles
+- **Ethan Forsha:** 1. Introduction
+- **Zachary Padalino:** 2. Test Items
+- **Thomas Birt:** 3.1 Unit Testing Features & 3.3 System Testing Features
+- **Tanner Dull:** 3.2 Integration Testing & 4. Features not to be Tested
+- **Alexander Sanchez:** 5. Pass/Fail Criteria
+
+### Next week's goals: 
+- Work on **Testing** document
