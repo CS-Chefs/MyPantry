@@ -15,18 +15,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.mypantry.MainActivity;
 import com.example.mypantry.Pantry.PantryActivity;
 import com.example.mypantry.R;
 import com.example.mypantry.Recipies.RecipiesFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.core.Context;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
     private EditText loginEmail, loginPwd;
     private Button loginBtn;
     private TextView loginQn;
@@ -43,9 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        toolbar = findViewById(R.id.loginToolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        //toolbar = findViewById(R.id.loginToolbar);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("");
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
 
@@ -97,12 +100,12 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                Intent intent = new Intent(LoginActivity.this, PantryActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else{
                                 String error = task.getException().toString();
-                                Toast.makeText(LoginActivity.this, "Login failed" + error, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Login failed: " + error, Toast.LENGTH_SHORT).show();
                             }
                             loader.dismiss();
                         }

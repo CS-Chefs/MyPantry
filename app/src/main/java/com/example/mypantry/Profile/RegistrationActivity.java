@@ -23,7 +23,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
 
     private EditText RegEmail, RegPwd;
     private Button RegBtn;
@@ -38,9 +38,9 @@ public class RegistrationActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_registration);
 
-        toolbar = findViewById(R.id.RegistrationToolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        //toolbar = findViewById(R.id.RegistrationToolbar);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("");
 
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
@@ -86,7 +86,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 finish();
                             } else{
                                 String error = task.getException().toString();
-                                Toast.makeText(RegistrationActivity.this, "Registration failed" + error, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistrationActivity.this, "Registration failed: " + error, Toast.LENGTH_SHORT).show();
                             }
                             loader.dismiss();
                         }
