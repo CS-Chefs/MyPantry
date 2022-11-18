@@ -17,6 +17,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".Profile.LoginActivity"/>
         <activity android:name=".Profile.RegistrationActivity"/>
+        <activity android:name=".Pantry.PantryActivity"/>
         <activity
             android:name=".splash_activity"
             android:exported="true">
