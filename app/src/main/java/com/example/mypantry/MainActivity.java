@@ -13,7 +13,8 @@ import com.example.mypantry.GroceryList.GroceryListFragment;
 import com.example.mypantry.Pantry.PantryActivity;
 import com.example.mypantry.Pantry.PantryFragment;
 import com.example.mypantry.Profile.ProfileFragment;
-import com.example.mypantry.Recipes.RecipesFragment;
+import com.example.mypantry.Recipes.RandomRecipesOptionFragment;
+import com.example.mypantry.Recipes.RecipesMainFragment;
 import com.example.mypantry.databinding.ActivityMainBinding;
 import com.google.firebase.FirebaseApp;
 
@@ -26,13 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new RecipesFragment());
-        /*
-        TO DO:
-        1. ADD WAY TO DEFAULT LOGIN SCREEN WHEN NOT LOGGED IN ALREADY
-        2. ADD EACH FRAGMENTS UNIQUE LAYOUT
-        3. ADD FUNCTIONALITY TO EACH FRAGMENT
-         */
+        replaceFragment(new RecipesMainFragment());
+
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -50,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new ProfileFragment());
                     break;
                 case R.id.Recipes:
-                    replaceFragment(new RecipesFragment());
+                    replaceFragment(new RecipesMainFragment());
                     break;
             }
 

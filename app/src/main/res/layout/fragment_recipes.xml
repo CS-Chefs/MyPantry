@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/teal_200"
     android:orientation="vertical"
-    tools:context=".Recipes.RecipesFragment">
+    tools:context=".Recipes.RandomRecipesOptionFragment">
 
     <androidx.cardview.widget.CardView
         app:cardElevation="8dp"
@@ -22,11 +22,17 @@
             app:searchIcon="@drawable/ic_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        
+
+
+
+        
     </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_random"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:overScrollMode="never"
         android:layout_margin="4dp" />
 
 </LinearLayout>
