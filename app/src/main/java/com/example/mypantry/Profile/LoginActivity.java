@@ -18,7 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.mypantry.MainActivity;
 import com.example.mypantry.Pantry.PantryActivity;
 import com.example.mypantry.R;
-import com.example.mypantry.Recipies.RecipiesFragment;
+import com.example.mypantry.Recipes.RecipesMainFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
