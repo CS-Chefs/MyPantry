@@ -61,6 +61,6 @@ public class PantryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pantry, container, false);
+        return inflater.inflate(R.layout.pantry_main_activity, container, false);
     }
 }
