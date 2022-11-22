@@ -13,19 +13,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.mypantry.MainActivity;
-import com.example.mypantry.Pantry.PantryActivity;
 import com.example.mypantry.R;
-import com.example.mypantry.Recipes.RecipesMainFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.core.Context;
 
 public class LoginActivity extends AppCompatActivity {
 
