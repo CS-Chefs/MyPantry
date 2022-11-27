@@ -38,7 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class PantryActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
 
@@ -60,9 +60,9 @@ public class PantryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantry_main_activity);
 
-        toolbar = findViewById(R.id.HomeToolbar);
-        toolbar.getBackground().setAlpha(0);
-        setSupportActionBar(toolbar);
+        //toolbar = findViewById(R.id.HomeToolbar);
+        //toolbar.getBackground().setAlpha(0);
+        //setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         mAuth = FirebaseAuth.getInstance();
 
@@ -91,7 +91,7 @@ public class PantryActivity extends AppCompatActivity {
 
     }
 
-    //function that adds a task and upload to Firebase
+    //function that adds a pantry item and uploads it to Firebase
     private void addPantryItem() {
         AlertDialog.Builder myDialog = new AlertDialog.Builder(this); //create a alert dialog
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -297,7 +297,7 @@ public class PantryActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> pantryItem) {
                         if (pantryItem.isSuccessful()){
-                            Toast.makeText(PantryActivity.this, "Task has been deleted successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PantryActivity.this, "Item has been deleted successfully", Toast.LENGTH_SHORT).show();
                         } else{
                             String error = pantryItem.getException().toString();
                             Toast.makeText(PantryActivity.this, "Delete failed" + error, Toast.LENGTH_SHORT).show();
@@ -311,7 +311,7 @@ public class PantryActivity extends AppCompatActivity {
 
         dialog.show();
     }
-
+    /*
     //set up the log out function
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -331,4 +331,5 @@ public class PantryActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    */
 }

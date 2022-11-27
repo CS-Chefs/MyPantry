@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.mypantry.MainActivity;
 import com.example.mypantry.Pantry.PantryActivity;
 import com.example.mypantry.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -81,7 +82,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if(task.isSuccessful()){
-                                Intent intent = new Intent(RegistrationActivity.this, PantryActivity.class);
+                                Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else{

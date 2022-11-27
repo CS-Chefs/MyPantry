@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mypantry.GroceryList.GroceryListFragment;
+import com.example.mypantry.Pantry.PantryActivity;
 import com.example.mypantry.Pantry.PantryFragment;
 import com.example.mypantry.Profile.ProfileFragment;
 import com.example.mypantry.Recipies.RecipiesFragment;
@@ -32,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new GroceryListFragment());
                     break;
                 case R.id.Pantry:
-                    replaceFragment(new PantryFragment());
+                    Intent i = new Intent(MainActivity.this, PantryActivity.class);
+                    startActivity(i);
+                    overridePendingTransition(0,0);
                     break;
                 case R.id.Profile:
                     replaceFragment(new ProfileFragment());
