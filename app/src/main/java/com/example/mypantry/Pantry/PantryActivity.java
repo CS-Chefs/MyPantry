@@ -2,14 +2,11 @@ package com.example.mypantry.Pantry;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,11 +17,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mypantry.Profile.LoginActivity;
 import com.example.mypantry.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -38,31 +33,23 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class PantryActivity extends AppCompatActivity {
 
-    //private Toolbar toolbar;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
-
     private DatabaseReference reference;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private String onlineUserID;
-
     private ProgressDialog loader;
-
     private String key = "";
     private String pantryItem;
     private String date;
     private String details;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantry_main_activity);
 
-        //toolbar = findViewById(R.id.HomeToolbar);
-        //toolbar.getBackground().setAlpha(0);
-        //setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         mAuth = FirebaseAuth.getInstance();
 
@@ -73,13 +60,11 @@ public class PantryActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        //set up a loader
         loader = new ProgressDialog(this);
 
         mUser = mAuth.getCurrentUser();
         onlineUserID = mUser.getUid();
-        reference = FirebaseDatabase.getInstance().getReference().child("tasks").child(onlineUserID);
-
+        reference = FirebaseDatabase.getInstance().getReference().child("Pantry Items").child(onlineUserID);
 
         floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -88,25 +73,24 @@ public class PantryActivity extends AppCompatActivity {
                 addPantryItem();
             }
         });
-
     }
 
-    //function that adds a pantry item and uploads it to Firebase
+    // function that adds a pantry item and uploads it to Firebase
     private void addPantryItem() {
-        AlertDialog.Builder myDialog = new AlertDialog.Builder(this); //create a alert dialog
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        //use the input_file layout as the view
+        // use the input_file layout as the view
         View myView = inflater.inflate(R.layout.pantry_add_item_activity, null);
         myDialog.setView(myView);
 
         final AlertDialog dialog = myDialog.create();
-        dialog.setCancelable(false); //touch outside doesn't cancel
+        dialog.setCancelable(false);
 
-        //mke a round-corner dialog
+        // make a round-corner dialog
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        //initialize the texts and btns
+        // initialize the texts and buttons
         final EditText pantryItem = myView.findViewById(R.id.item);
         final EditText description = myView.findViewById(R.id.description);
         final EditText date = myView.findViewById(R.id.date);
@@ -114,7 +98,7 @@ public class PantryActivity extends AppCompatActivity {
         Button save = myView.findViewById(R.id.saveBtn);
         Button cancel = myView.findViewById(R.id.CancelBtn);
 
-        //if the user clicks cancel button
+        // if the user clicks cancel button
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +106,7 @@ public class PantryActivity extends AppCompatActivity {
             }
         });
 
-        //if the user clicks save button
+        // if the user clicks the save button
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,20 +121,15 @@ public class PantryActivity extends AppCompatActivity {
                     pantryItem.setError("Pantry Item Required");
                     return;
                 }
-                /*
-                if (TextUtils.isEmpty(mDetails)) {
-                    description.setError("Item Details Required");
-                    return;
-                }
-                */
                 else {
                     loader.setMessage("Adding your pantry item");
                     loader.setCanceledOnTouchOutside(false);
                     loader.show();
 
-                    //use the Model class to pack up the data
+                    // use the Model class to pack up the data
                     PantryItem model = new PantryItem(mPantryItem, mDetails, id, mdate);
-                    //update the data to Firebase
+
+                    // update the data to Firebase
                     reference.child(id).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> pantryItem) {
@@ -163,14 +142,11 @@ public class PantryActivity extends AppCompatActivity {
                             loader.dismiss();
                         }
                     });
-
                 }
-
                 dialog.dismiss();
             }
         });
-
-        dialog.show();//show the dialog
+        dialog.show();
     }
 
     @Override
@@ -183,7 +159,7 @@ public class PantryActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull PantryItem model) {
                 holder.setDate(model.getDate());
-                holder.setTask(model.getPantryItem());
+                holder.setPantryItem(model.getPantryItem());
                 holder.setDesc(model.getDetails());
 
                 holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -193,11 +169,9 @@ public class PantryActivity extends AppCompatActivity {
                         pantryItem = model.getPantryItem();
                         details = model.getDetails();
                         date = model.getDate();
-
                         updatePantryItem();
                     }
                 });
-
             }
 
             @NonNull
@@ -220,9 +194,9 @@ public class PantryActivity extends AppCompatActivity {
             mView = itemView;
         }
 
-        public void setTask(String task){
-            TextView taskTextView = mView.findViewById(R.id.pantryItemTv);
-            taskTextView.setText(task);
+        public void setPantryItem(String task){
+            TextView itemTextView = mView.findViewById(R.id.pantryItemTv);
+            itemTextView.setText(task);
         }
 
         public void setDesc(String desc){
@@ -244,18 +218,17 @@ public class PantryActivity extends AppCompatActivity {
 
         AlertDialog dialog = myDialog.create();
 
-        //make the corner round
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        EditText mTask = view.findViewById(R.id.mEditedItem);
-        EditText mDescription = view.findViewById(R.id.mEditedDetails);
+        EditText mItem = view.findViewById(R.id.mEditedItem);
+        EditText mDetails = view.findViewById(R.id.mEditedDetails);
         EditText mDate = view.findViewById(R.id.mEditedDate);
 
-        mTask.setText(pantryItem);
-        mTask.setSelection(pantryItem.length());
+        mItem.setText(pantryItem);
+        mItem.setSelection(pantryItem.length());
 
-        mDescription.setText(details);
-        mDescription.setSelection(details.length());
+        mDetails.setText(details);
+        mDetails.setSelection(details.length());
 
         mDate.setText(date);
         mDate.setSelection(date.length());
@@ -266,11 +239,9 @@ public class PantryActivity extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pantryItem = mTask.getText().toString().trim();
-                details = mDescription.getText().toString().trim();
+                pantryItem = mItem.getText().toString().trim();
+                details = mDetails.getText().toString().trim();
                 date = mDate.getText().toString().trim();
-
-//                String date = DateFormat.getDateInstance().format(new Date());
 
                 PantryItem model = new PantryItem(pantryItem, details, key, date);
 
@@ -285,7 +256,6 @@ public class PantryActivity extends AppCompatActivity {
                         }
                     }
                 });
-
                 dialog.dismiss();
             }
         });
