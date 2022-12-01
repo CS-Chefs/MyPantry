@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyPantry/app/src/main/res/drawable/ic_profile.xml" value="0.105" />
         <entry key="..\:/MyPantry/app/src/main/res/layout/activity_create_account.xml" value="0.18" />
         <entry key="..\:/MyPantry/app/src/main/res/layout/activity_login.xml" value="0.18" />
+        <entry key="..\:/MyPantry/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
       </map>
     </option>
   </component>
