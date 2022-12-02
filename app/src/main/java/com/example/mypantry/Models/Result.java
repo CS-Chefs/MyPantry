@@ -3,6 +3,7 @@ package com.example.mypantry.Models;
 import java.util.ArrayList;
 
 public class Result{
+
     public boolean vegetarian;
     public boolean vegan;
     public boolean glutenFree;
@@ -19,6 +20,7 @@ public class Result{
     public int aggregateLikes;
     public int healthScore;
     public String creditsText;
+    public String license;
     public String sourceName;
     public double pricePerServing;
     public int id;
@@ -28,6 +30,7 @@ public class Result{
     public String sourceUrl;
     public String image;
     public String imageType;
+    public Nutrition nutrition;
     public String summary;
     public ArrayList<String> cuisines;
     public ArrayList<String> dishTypes;
@@ -35,6 +38,4 @@ public class Result{
     public ArrayList<Object> occasions;
     public ArrayList<AnalyzedInstruction> analyzedInstructions;
     public String spoonacularSourceUrl;
-    public String license;
-    public String author;
 }

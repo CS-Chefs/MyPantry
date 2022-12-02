@@ -2,10 +2,12 @@ package com.example.mypantry;
 
 import android.content.Context;
 
+import com.example.mypantry.Listeners.ComplexRecipeResponseListener;
 import com.example.mypantry.Listeners.RandomRecipeResponseListener;
+import com.example.mypantry.Models.ComplexRecipeApiResponse;
 import com.example.mypantry.Models.RandomRecipeApiResponse;
 
-import java.util.Random;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,16 +24,19 @@ public class RequestManager {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public RequestManager(Context context) {
-        this.context = context;
-    }
+    public RequestManager(Context context) { this.context = context; }
 
-    public void getRandomRecipes(RandomRecipeResponseListener listener){
+    public void getRandomRecipes(RandomRecipeResponseListener listener, List<String> tags){
         CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
-        Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_key), "10");
+        Call<RandomRecipeApiResponse> call =
+                callRandomRecipes.callRandomRecipe(context.getString(R.string.api_key),
+                "100",
+                tags);
+
         call.enqueue(new Callback<RandomRecipeApiResponse>() {
             @Override
-            public void onResponse(Call<RandomRecipeApiResponse> call, Response<RandomRecipeApiResponse> response) {
+            public void onResponse(
+                    Call<RandomRecipeApiResponse> call, Response<RandomRecipeApiResponse> response) {
                 if (!response.isSuccessful()) {
                     listener.didError(response.message());
                     return;
@@ -49,8 +54,44 @@ public class RequestManager {
     private interface CallRandomRecipes{
         @GET("recipes/random")
         Call<RandomRecipeApiResponse> callRandomRecipe(
-               @Query("apiKey") String apiKey,
-                @Query("number") String number
+                @Query("apiKey") String apiKey,
+                @Query("number") String number,
+                @Query("tags") List<String> tags
+        );
+    }
+
+    public void getComplexRecipes(ComplexRecipeResponseListener listener, List<String> tags){
+        CallComplexRecipes callComplexRecipes = retrofit.create(CallComplexRecipes.class);
+        Call<ComplexRecipeApiResponse> call =
+                callComplexRecipes.callComplexRecipe(context.getString(R.string.api_key),
+                "100", "True", "True", tags);
+
+        call.enqueue(new Callback<ComplexRecipeApiResponse>() {
+            @Override
+            public void onResponse(
+                    Call<ComplexRecipeApiResponse> call, Response<ComplexRecipeApiResponse> response) {
+                if (!response.isSuccessful()) {
+                    listener.didError(response.message());
+                    return;
+                }
+                listener.didFetch(response.body(), response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ComplexRecipeApiResponse> call, Throwable t) {
+                listener.didError(t.getMessage());
+            }
+        });
+    }
+
+    private interface CallComplexRecipes{
+        @GET("recipes/complexSearch")
+        Call<ComplexRecipeApiResponse> callComplexRecipe(
+                @Query("apiKey") String apiKey,
+                @Query("number") String number,
+                @Query("addRecipeInformation") String addRecipeInformation,
+                @Query("addRecipeNutrition") String addRecipeNutrition,
+                @Query("query") List<String> tags
         );
     }
 }
