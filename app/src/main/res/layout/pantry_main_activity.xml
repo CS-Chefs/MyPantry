@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pantry.PantryActivity"
+    tools:context=".Pantry.PantryMainFragment"
     android:orientation="vertical"
     android:background="@drawable/background_design">
 
@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp" >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

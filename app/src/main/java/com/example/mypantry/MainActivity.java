@@ -5,17 +5,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mypantry.GroceryList.GroceryListFragment;
-import com.example.mypantry.Pantry.PantryActivity;
-import com.example.mypantry.Pantry.PantryFragment;
+import com.example.mypantry.Pantry.PantryMainFragment;
 import com.example.mypantry.Profile.ProfileFragment;
-import com.example.mypantry.Recipies.RecipiesFragment;
+import com.example.mypantry.Recipes.RecipesMainFragment;
 import com.example.mypantry.databinding.ActivityMainBinding;
-import com.google.firebase.FirebaseApp;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new RecipiesFragment());
+        replaceFragment(new RecipesMainFragment());
+
+
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             switch  (item.getItemId()){
@@ -35,15 +34,16 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new GroceryListFragment());
                     break;
                 case R.id.Pantry:
-                    Intent i = new Intent(MainActivity.this, PantryActivity.class);
-                    startActivity(i);
-                    overridePendingTransition(0,0);
+                    replaceFragment(new PantryMainFragment());
+//                    Intent i = new Intent(MainActivity.this, PantryMainFragment.class);
+//                    startActivity(i);
+//                    overridePendingTransition(0,0);
                     break;
                 case R.id.Profile:
                     replaceFragment(new ProfileFragment());
                     break;
                 case R.id.Recipes:
-                    replaceFragment(new RecipiesFragment());
+                    replaceFragment(new RecipesMainFragment());
                     break;
             }
 

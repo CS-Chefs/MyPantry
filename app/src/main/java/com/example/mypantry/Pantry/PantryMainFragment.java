@@ -17,6 +17,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.fragment.app.Fragment;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +34,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class PantryActivity extends AppCompatActivity {
+public class PantryMainFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
@@ -46,39 +49,48 @@ public class PantryActivity extends AppCompatActivity {
     private String details;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.pantry_main_activity);
 
-        getSupportActionBar().setTitle("");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.pantry_main_activity, container, false);
+
+        //getSupportActionBar().setTitle("");
+
         mAuth = FirebaseAuth.getInstance();
 
-        recyclerView = findViewById(R.id.recyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        loader = new ProgressDialog(this);
+        //set up a loader
+        loader = new ProgressDialog(getActivity());
+
 
         mUser = mAuth.getCurrentUser();
         onlineUserID = mUser.getUid();
         reference = FirebaseDatabase.getInstance().getReference().child("Pantry Items").child(onlineUserID);
 
-        floatingActionButton = findViewById(R.id.fab);
+        floatingActionButton = view.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addPantryItem();
             }
         });
+
+        return view;
+
     }
 
     // function that adds a pantry item and uploads it to Firebase
     private void addPantryItem() {
-        AlertDialog.Builder myDialog = new AlertDialog.Builder(this);
-        LayoutInflater inflater = LayoutInflater.from(this);
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(getActivity()); //create a alert dialog
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+
 
         // use the input_file layout as the view
         View myView = inflater.inflate(R.layout.pantry_add_item_activity, null);
@@ -134,10 +146,10 @@ public class PantryActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> pantryItem) {
                             if (pantryItem.isSuccessful()) {
-                                Toast.makeText(PantryActivity.this, "Pantry item has been added successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Pantry item has been added successfully", Toast.LENGTH_SHORT).show();
                             } else {
                                 String error = pantryItem.getException().toString();
-                                Toast.makeText(PantryActivity.this, "Failed: " + error, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Failed: " + error, Toast.LENGTH_SHORT).show();
                             }
                             loader.dismiss();
                         }
@@ -150,7 +162,7 @@ public class PantryActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
 
         FirebaseRecyclerOptions<PantryItem> options = new FirebaseRecyclerOptions.Builder<PantryItem>().setQuery(reference,  PantryItem.class).build();
@@ -211,8 +223,8 @@ public class PantryActivity extends AppCompatActivity {
     }
 
     private void updatePantryItem(){
-        AlertDialog.Builder myDialog = new AlertDialog.Builder(this);
-        LayoutInflater inflater = LayoutInflater.from(this);
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.pantry_item_update_activity, null);
         myDialog.setView(view);
 
@@ -249,10 +261,10 @@ public class PantryActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> pantryItem) {
                         if (pantryItem.isSuccessful()){
-                            Toast.makeText(PantryActivity.this, "Pantry item has been updated successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Pantry item has been updated successfully", Toast.LENGTH_SHORT).show();
                         } else{
                             String error = pantryItem.getException().toString();
-                            Toast.makeText(PantryActivity.this, "Update failed" + error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Update failed" + error, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -267,10 +279,10 @@ public class PantryActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> pantryItem) {
                         if (pantryItem.isSuccessful()){
-                            Toast.makeText(PantryActivity.this, "Item has been deleted successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Item has been deleted successfully", Toast.LENGTH_SHORT).show();
                         } else{
                             String error = pantryItem.getException().toString();
-                            Toast.makeText(PantryActivity.this, "Delete failed" + error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Delete failed" + error, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

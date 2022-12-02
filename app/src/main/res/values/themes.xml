@@ -12,6 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:editTextColor">@color/white</item>
+
     </style>
 
     <style name="Theme.MyPantry.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
