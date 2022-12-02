@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
 
@@ -55,8 +54,6 @@ public class PantryMainFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.pantry_main_activity, container, false);
 
-        //getSupportActionBar().setTitle("");
-
         mAuth = FirebaseAuth.getInstance();
 
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -68,7 +65,6 @@ public class PantryMainFragment extends Fragment {
 
         //set up a loader
         loader = new ProgressDialog(getActivity());
-
 
         mUser = mAuth.getCurrentUser();
         onlineUserID = mUser.getUid();
@@ -90,7 +86,6 @@ public class PantryMainFragment extends Fragment {
     private void addPantryItem() {
         AlertDialog.Builder myDialog = new AlertDialog.Builder(getActivity()); //create a alert dialog
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-
 
         // use the input_file layout as the view
         View myView = inflater.inflate(R.layout.pantry_add_item_activity, null);
@@ -126,8 +121,6 @@ public class PantryMainFragment extends Fragment {
                 String mDetails = description.getText().toString().trim();
                 String mdate = date.getText().toString().trim();
                 String id = reference.push().getKey();//get the key for each data set
-
-//                String date = DateFormat.getDateInstance().format(new Date());
 
                 if (TextUtils.isEmpty(mPantryItem)) {
                     pantryItem.setError("Pantry Item Required");
