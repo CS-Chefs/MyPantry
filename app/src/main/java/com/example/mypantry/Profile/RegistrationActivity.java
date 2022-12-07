@@ -22,7 +22,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationActivity extends AppCompatActivity {
-    //private Toolbar toolbar;
 
     private EditText RegEmail, RegPwd;
     private Button RegBtn;
@@ -37,10 +36,6 @@ public class RegistrationActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_registration);
 
-        //toolbar = findViewById(R.id.RegistrationToolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("");
-
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
 
@@ -48,7 +43,6 @@ public class RegistrationActivity extends AppCompatActivity {
         RegPwd = findViewById(R.id.RegistrationPassword);
         RegBtn = findViewById(R.id.RegistrationButton);
         RegQn = findViewById(R.id.RegistrationPageQuestion);
-
 
         RegQn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +85,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         }
                     });
                 }
-
             }
         });
     }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Profile.RegistrationActivity"
     android:orientation="vertical"
-    android:background="@drawable/background_design">
+    android:background="@drawable/background_design_login">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/RegistrationToolbar"

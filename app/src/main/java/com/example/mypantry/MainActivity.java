@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.Pantry:
                     replaceFragment(new PantryMainFragment());
-//                    Intent i = new Intent(MainActivity.this, PantryMainFragment.class);
-//                    startActivity(i);
-//                    overridePendingTransition(0,0);
                     break;
                 case R.id.Profile:
                     replaceFragment(new ProfileFragment());
