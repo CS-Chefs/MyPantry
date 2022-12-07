@@ -120,7 +120,7 @@ public class PantryMainFragment extends Fragment {
                 String mPantryItem = pantryItem.getText().toString().trim();
                 String mDetails = description.getText().toString().trim();
                 String mdate = date.getText().toString().trim();
-                String id = reference.push().getKey();//get the key for each data set
+                String id = reference.push().getKey(); // get the key for each data set
 
                 if (TextUtils.isEmpty(mPantryItem)) {
                     pantryItem.setError("Pantry Item Required");
