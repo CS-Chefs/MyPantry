@@ -107,60 +107,12 @@ import com.google.firebase.database.FirebaseDatabase;
             getSupportActionBar().setTitle("");
             mAuth = FirebaseAuth.getInstance();
 
-            recyclerView = findViewById(R.id.recyclerView);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            linearLayoutManager.setReverseLayout(true);
-            linearLayoutManager.setStackFromEnd(true);
-
             loader = new ProgressDialog(this);
 
             mUser = mAuth.getCurrentUser();
             onlineUserID = mUser.getUid();
-            reference = FirebaseDatabase.getInstance().getReference().child("Pantry Items").child(onlineUserID);
+
         }
-
-        // if the user clicks the Update button
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String mChangeEmail = pantryItem.getText().toString().trim();
-                String mNewPass = description.getText().toString().trim();
-                String id = reference.push().getKey();
-
-                if (TextUtils.isEmpty(mPantryItem)) {
-                    pantryItem.setError("Pantry Item Required");
-                    return;
-                }
-                else {
-                    loader.setMessage("Adding your pantry item");
-                    loader.setCanceledOnTouchOutside(false);
-                    loader.show();
-
-                    // use the Model class to pack up the data
-                    PantryItem model = new PantryItem(mPantryItem, mDetails, id, mdate);
-
-                    // update the data to Firebase
-                    reference.child(id).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> pantryItem) {
-                            if (pantryItem.isSuccessful()) {
-                                Toast.makeText(PantryActivity.this, "Pantry item has been added successfully", Toast.LENGTH_SHORT).show();
-                            } else {
-                                String error = pantryItem.getException().toString();
-                                Toast.makeText(PantryActivity.this, "Failed: " + error, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-
-            }
-        });
-
-
-
-
-
-
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,9 +127,8 @@ import com.google.firebase.database.FirebaseDatabase;
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 mAuth.signOut();
-                Intent intent = new Intent(ProfileFragment.this, LoginActivity.class);
+                Intent intent = new Intent(, LoginActivity.class);
                 StartActivity(intent);
                 finish();
         }
