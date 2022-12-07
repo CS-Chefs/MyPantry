@@ -61,6 +61,7 @@ import com.google.firebase.database.FirebaseDatabase;
         private String onlineUserID;
         private ProgressDialog loader;
         private String key = "";
+        private Button btnUpdate;
         private Button btnLogout;
         private String nEmail = "";
         private String newPass = "";
