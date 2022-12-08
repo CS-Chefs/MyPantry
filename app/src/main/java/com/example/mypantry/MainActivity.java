@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.mypantry.GroceryList.GroceryListFragment;
+import com.example.mypantry.GroceryList.GroceryMainFragment;
 import com.example.mypantry.Pantry.PantryMainFragment;
 import com.example.mypantry.Profile.ProfileFragment;
 import com.example.mypantry.Recipes.RecipesMainFragment;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             switch  (item.getItemId()){
 
                 case R.id.Grocery_List:
-                    replaceFragment(new GroceryListFragment());
+                    replaceFragment(new GroceryMainFragment());
                     break;
                 case R.id.Pantry:
                     replaceFragment(new PantryMainFragment());

@@ -2,136 +2,94 @@ package com.example.mypantry.Profile;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.mypantry.R;
-
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.mypantry.R;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-    public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
-        private static final String ARG_PARAM1 = "param1";
-        private static final String ARG_PARAM2 = "param2";
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    private String onlineUserID;
+    private ProgressDialog loader;
 
-        // TODO: Rename and change types of parameters
-        private String mParam1;
-        private String mParam2;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        public ProfileFragment() {
-            // Required empty public constructor
-        }
-        private FloatingActionButton floatingActionButton;
-        private DatabaseReference reference;
-        private FirebaseAuth mAuth;
-        private FirebaseUser mUser;
-        private String onlineUserID;
-        private ProgressDialog loader;
-        private String key = "";
-        private Button btnUpdate;
-        private Button btnLogout;
-        private String nEmail = "";
-        private String newPass = "";
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        loader = new ProgressDialog(getActivity());
+        mUser = mAuth.getCurrentUser();
+        onlineUserID = mUser.getUid();
 
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private static final String ARG_PARAM1 = "param1";
-        private static final String ARG_PARAM2 = "param2";
+        TextView changeEmail = view.findViewById(R.id.mEmail);
+        EditText changePass = view.findViewById(R.id.mNewPass);
+        EditText confirmPass = view.findViewById(R.id.mConfirmPass);
 
-        // TODO: Rename and change types of parameters
-        private String mParam1;
-        private String mParam2;
+        changeEmail.setText("Email: " + mUser.getEmail());
 
+        changePass.setText("");
+        confirmPass.setText("");
 
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        public static ProfileFragment newInstance(String param1, String param2) {
-            ProfileFragment fragment = new ProfileFragment();
-            Bundle args = new Bundle();
-            args.putString(ARG_PARAM1, param1);
-            args.putString(ARG_PARAM2, param2);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_profile, container, false);
-        }
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.fragment_profile);
-
-            getSupportActionBar().setTitle("");
-            mAuth = FirebaseAuth.getInstance();
-
-            loader = new ProgressDialog(this);
-
-            mUser = mAuth.getCurrentUser();
-            onlineUserID = mUser.getUid();
-
-        }
+        Button btnLogout = view.findViewById(R.id.btnLogOut);
+        Button btnUpdate = view.findViewById(R.id.btnUpdate);
+        Button btnDeleteAccount = view.findViewById(R.id.btnDeleteAccount);
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            nEmail = mChangeEmail.getText().toString().trim();
-            newPass = mNewPass.getText().toString().trim();
+                if (!(changePass.getText().toString().trim()).equals(confirmPass.getText().toString().trim())){
+                    String error = "Error: Passwords do not match";
+                    Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+                }
+                else if ((changePass.getText().toString().trim()).equals("")){
+                    String error = "Error: Password cannot be empty";
+                    Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+                }
+                else if ((confirmPass.getText().toString().trim()).equals("")){
+                    String error = "Error: Please confirm new password";
+                    Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    mUser.updatePassword(changePass.getText().toString().trim());
+                    Toast.makeText(getActivity(), "Password has been changed successfully", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
-                Intent intent = new Intent(, LoginActivity.class);
-                StartActivity(intent);
-                finish();
-        }
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
         });
+
+        btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.getCurrentUser().delete();
+                mAuth.signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+}
