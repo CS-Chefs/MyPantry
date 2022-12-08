@@ -1,4 +1,4 @@
-package com.example.mypantry.Pantry;
+package com.example.mypantry.GroceryList;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -13,11 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+
 import com.example.mypantry.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -29,7 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class PantryMainFragment extends Fragment {
+public class GroceryMainFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
@@ -39,14 +42,18 @@ public class PantryMainFragment extends Fragment {
     private String onlineUserID;
     private ProgressDialog loader;
     private String key = "";
-    private String pantryItem;
+    private String groceryItem;
     private String date;
     private String details;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.pantry_main_activity, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.grocery_main_activity, container, false);
+
+        //getSupportActionBar().setTitle("");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -60,15 +67,16 @@ public class PantryMainFragment extends Fragment {
         //set up a loader
         loader = new ProgressDialog(getActivity());
 
+
         mUser = mAuth.getCurrentUser();
         onlineUserID = mUser.getUid();
-        reference = FirebaseDatabase.getInstance().getReference().child("Pantry Items").child(onlineUserID);
+        reference = FirebaseDatabase.getInstance().getReference().child("Grocery Items").child(onlineUserID);
 
         floatingActionButton = view.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addPantryItem();
+                addGroceryItem();
             }
         });
 
@@ -76,13 +84,14 @@ public class PantryMainFragment extends Fragment {
 
     }
 
-    // function that adds a pantry item and uploads it to Firebase
-    private void addPantryItem() {
+    // function that adds a grocery item and uploads it to Firebase
+    private void addGroceryItem() {
         AlertDialog.Builder myDialog = new AlertDialog.Builder(getActivity()); //create a alert dialog
         LayoutInflater inflater = LayoutInflater.from(getActivity());
 
+
         // use the input_file layout as the view
-        View myView = inflater.inflate(R.layout.pantry_add_item_activity, null);
+        View myView = inflater.inflate(R.layout.grocery_add_item_activity, null);
         myDialog.setView(myView);
 
         final AlertDialog dialog = myDialog.create();
@@ -92,7 +101,7 @@ public class PantryMainFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         // initialize the texts and buttons
-        final EditText pantryItem = myView.findViewById(R.id.item);
+        final EditText groceryItem = myView.findViewById(R.id.item);
         final EditText description = myView.findViewById(R.id.description);
         final EditText date = myView.findViewById(R.id.date);
 
@@ -111,31 +120,33 @@ public class PantryMainFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mPantryItem = pantryItem.getText().toString().trim();
+                String mGroceryItem = groceryItem.getText().toString().trim();
                 String mDetails = description.getText().toString().trim();
                 String mdate = date.getText().toString().trim();
-                String id = reference.push().getKey(); // get the key for each data set
+                String id = reference.push().getKey();//get the key for each data set
 
-                if (TextUtils.isEmpty(mPantryItem)) {
-                    pantryItem.setError("Pantry Item Required");
+//                String date = DateFormat.getDateInstance().format(new Date());
+
+                if (TextUtils.isEmpty(mGroceryItem)) {
+                    groceryItem.setError("Ingredient Required!");
                     return;
                 }
                 else {
-                    loader.setMessage("Adding your pantry item");
+                    loader.setMessage("Adding your ingredient");
                     loader.setCanceledOnTouchOutside(false);
                     loader.show();
 
                     // use the Model class to pack up the data
-                    PantryItem model = new PantryItem(mPantryItem, mDetails, id, mdate);
+                    GroceryItem model = new GroceryItem(mGroceryItem, mDetails, id, mdate);
 
                     // update the data to Firebase
                     reference.child(id).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> pantryItem) {
-                            if (pantryItem.isSuccessful()) {
-                                Toast.makeText(getActivity(), "Pantry item has been added successfully", Toast.LENGTH_SHORT).show();
+                        public void onComplete(@NonNull Task<Void> groceryItem) {
+                            if (groceryItem.isSuccessful()) {
+                                Toast.makeText(getActivity(), "grocery item has been added successfully", Toast.LENGTH_SHORT).show();
                             } else {
-                                String error = pantryItem.getException().toString();
+                                String error = groceryItem.getException().toString();
                                 Toast.makeText(getActivity(), "Failed: " + error, Toast.LENGTH_SHORT).show();
                             }
                             loader.dismiss();
@@ -152,23 +163,23 @@ public class PantryMainFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerOptions<PantryItem> options = new FirebaseRecyclerOptions.Builder<PantryItem>().setQuery(reference,  PantryItem.class).build();
+        FirebaseRecyclerOptions<GroceryItem> options = new FirebaseRecyclerOptions.Builder<GroceryItem>().setQuery(reference,  GroceryItem.class).build();
 
-        FirebaseRecyclerAdapter<PantryItem, MyViewHolder> adapter = new FirebaseRecyclerAdapter<PantryItem, MyViewHolder>(options) {
+        FirebaseRecyclerAdapter<GroceryItem, MyViewHolder> adapter = new FirebaseRecyclerAdapter<GroceryItem, MyViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull PantryItem model) {
+            protected void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull GroceryItem model) {
                 holder.setDate(model.getDate());
-                holder.setPantryItem(model.getPantryItem());
+                holder.setgroceryItem(model.getGroceryItem());
                 holder.setDesc(model.getDetails());
 
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         key = getRef(position).getKey();
-                        pantryItem = model.getPantryItem();
+                        groceryItem = model.getGroceryItem();
                         details = model.getDetails();
                         date = model.getDate();
-                        updatePantryItem();
+                        updateGroceryItem();
                     }
                 });
             }
@@ -176,7 +187,7 @@ public class PantryMainFragment extends Fragment {
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pantry_item_activity, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grocery_item_activity, parent, false);
                 return new MyViewHolder(view);
             }
         };
@@ -193,8 +204,8 @@ public class PantryMainFragment extends Fragment {
             mView = itemView;
         }
 
-        public void setPantryItem(String task){
-            TextView itemTextView = mView.findViewById(R.id.pantryItemTv);
+        public void setgroceryItem(String task){
+            TextView itemTextView = mView.findViewById(R.id.groceryItemTv);
             itemTextView.setText(task);
         }
 
@@ -209,10 +220,10 @@ public class PantryMainFragment extends Fragment {
         }
     }
 
-    private void updatePantryItem(){
+    private void updateGroceryItem(){
         AlertDialog.Builder myDialog = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View view = inflater.inflate(R.layout.pantry_item_update_activity, null);
+        View view = inflater.inflate(R.layout.grocery_item_update_activity, null);
         myDialog.setView(view);
 
         AlertDialog dialog = myDialog.create();
@@ -223,8 +234,8 @@ public class PantryMainFragment extends Fragment {
         EditText mDetails = view.findViewById(R.id.mEditedDetails);
         EditText mDate = view.findViewById(R.id.mEditedDate);
 
-        mItem.setText(pantryItem);
-        mItem.setSelection(pantryItem.length());
+        mItem.setText(groceryItem);
+        mItem.setSelection(groceryItem.length());
 
         mDetails.setText(details);
         mDetails.setSelection(details.length());
@@ -238,20 +249,20 @@ public class PantryMainFragment extends Fragment {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pantryItem = mItem.getText().toString().trim();
+                groceryItem = mItem.getText().toString().trim();
                 details = mDetails.getText().toString().trim();
                 date = mDate.getText().toString().trim();
 
-                PantryItem model = new PantryItem(pantryItem, details, key, date);
+                GroceryItem model = new GroceryItem(groceryItem, details, key, date);
 
                 reference.child(key).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> pantryItem) {
-                        if (pantryItem.isSuccessful()){
-                            Toast.makeText(getActivity(), "Pantry item has been updated successfully", Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull Task<Void> groceryItem) {
+                        if (groceryItem.isSuccessful()){
+                            Toast.makeText(getActivity(), "Ingredient has been updated successfully", Toast.LENGTH_SHORT).show();
                         } else{
-                            String error = pantryItem.getException().toString();
-                            Toast.makeText(getActivity(), "Update failed" + error, Toast.LENGTH_SHORT).show();
+                            String error = groceryItem.getException().toString();
+                            Toast.makeText(getActivity(), "Update failed :(" + error, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -264,12 +275,12 @@ public class PantryMainFragment extends Fragment {
             public void onClick(View view) {
                 reference.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> pantryItem) {
-                        if (pantryItem.isSuccessful()){
-                            Toast.makeText(getActivity(), "Item has been deleted successfully", Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull Task<Void> groceryItem) {
+                        if (groceryItem.isSuccessful()){
+                            Toast.makeText(getActivity(), "Ingredient has been deleted successfully", Toast.LENGTH_SHORT).show();
                         } else{
-                            String error = pantryItem.getException().toString();
-                            Toast.makeText(getActivity(), "Delete failed" + error, Toast.LENGTH_SHORT).show();
+                            String error = groceryItem.getException().toString();
+                            Toast.makeText(getActivity(), "Delete failed :(" + error, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -280,25 +291,4 @@ public class PantryMainFragment extends Fragment {
 
         dialog.show();
     }
-    /*
-    //set up the log out function
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.logout:
-                mAuth.signOut();
-                Intent intent = new Intent(PantryActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    */
 }
