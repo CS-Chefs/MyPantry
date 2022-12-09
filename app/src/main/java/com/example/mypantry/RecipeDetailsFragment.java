@@ -16,19 +16,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mypantry.Adapters.IngredientsAdapter;
+import com.example.mypantry.Adapters.InstructionsAdapter;
+import com.example.mypantry.Listeners.InstructionsListener;
 import com.example.mypantry.Listeners.RecipeDetailsListener;
+import com.example.mypantry.Models.InstructionsResponse;
 import com.example.mypantry.Models.RecipeDetailsResponse;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 
 public class RecipeDetailsFragment extends Fragment {
     int id;
     TextView textView_meal_name, textView_meal_source, textView_meal_summary;
     ImageView imageView_meal_image;
-    RecyclerView recycler_meal_ingredients;
+    RecyclerView recycler_meal_ingredients, recycler_meal_instructions;
     RequestManager manager;
     ProgressDialog dialog;
     IngredientsAdapter ingredientsAdapter;
+    InstructionsAdapter instructionsAdapter;
 
     public RecipeDetailsFragment() {
         // Required empty public constructor
@@ -52,6 +58,7 @@ public class RecipeDetailsFragment extends Fragment {
 
         manager = new RequestManager(getActivity());
         manager.getRecipeDetails(recipeDetailsListener, id);
+        manager.getInstructions(instructionsListener, id);
         dialog = new ProgressDialog(getActivity());
         dialog.setTitle("Loading Details...");
         dialog.show();
@@ -66,6 +73,7 @@ public class RecipeDetailsFragment extends Fragment {
         textView_meal_summary = view.findViewById(R.id.textView_meal_summary);
         imageView_meal_image = view.findViewById(R.id.imageView_meal_image);
         recycler_meal_ingredients = view.findViewById(R.id.recycler_meal_ingredients);
+        recycler_meal_instructions = view.findViewById(R.id.recycler_meal_instructions);
 
     }
 
@@ -88,6 +96,21 @@ public class RecipeDetailsFragment extends Fragment {
         @Override
         public void didError(String message) {
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private final InstructionsListener instructionsListener = new InstructionsListener() {
+        @Override
+        public void didFetch(List<InstructionsResponse> response, String message) {
+            recycler_meal_instructions.setHasFixedSize(true);
+            recycler_meal_instructions.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            instructionsAdapter = new InstructionsAdapter(getActivity(), response);
+            recycler_meal_instructions.setAdapter(instructionsAdapter);
+        }
+
+        @Override
+        public void didError(String message) {
+
         }
     };
 }

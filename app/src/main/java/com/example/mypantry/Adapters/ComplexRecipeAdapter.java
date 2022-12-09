@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mypantry.Listeners.RecipeClickListener;
 import com.example.mypantry.Models.Result;
 import com.example.mypantry.R;
 import com.squareup.picasso.Picasso;
@@ -20,10 +21,14 @@ import java.util.List;
 public class ComplexRecipeAdapter extends RecyclerView.Adapter<ComplexRecipeViewHolder>{
     Context context;
     List<Result> list;
+    RecipeClickListener listener;
 
-    public ComplexRecipeAdapter(Context context, List<Result> list) {
+
+    public ComplexRecipeAdapter(Context context, List<Result> list, RecipeClickListener listener) {
         this.context = context;
         this.list = list;
+        this.listener = listener;
+
     }
 
     @NonNull
@@ -42,6 +47,14 @@ public class ComplexRecipeAdapter extends RecyclerView.Adapter<ComplexRecipeView
         holder.textView_servings.setText(list.get(position).servings+" Servings");
         holder.textView_time.setText(list.get(position).readyInMinutes+ " Minutes");
         Picasso.get().load(list.get(position).image).into(holder.imageView_food);
+
+        holder.random_list_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onRecipeClicked(String.valueOf(list.get(holder.getAbsoluteAdapterPosition()).id));
+            }
+        });
+
     }
 
     @Override

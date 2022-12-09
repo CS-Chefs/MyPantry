@@ -53,7 +53,6 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
             }
         });
 
-
     }
 
     @Override

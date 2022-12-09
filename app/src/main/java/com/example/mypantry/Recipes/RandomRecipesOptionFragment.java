@@ -41,7 +41,8 @@ public class RandomRecipesOptionFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container, Bundle savedInstanceState) {
+                             @Nullable ViewGroup container, Bundle savedInstanceState)
+    {
         super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
 
@@ -64,12 +65,10 @@ public class RandomRecipesOptionFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) { return false;}
         });
-
         manager = new RequestManager(getActivity());
         manager.getRandomRecipes(randomRecipeResponseListener, tags);
         dialog.show();
         return view;
-
     }
 
     private final RandomRecipeResponseListener randomRecipeResponseListener =
@@ -80,7 +79,8 @@ public class RandomRecipesOptionFragment extends Fragment {
             recyclerView = requireView().findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-            randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes, recipeClickListener);
+            randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes
+                    , recipeClickListener);
             recyclerView.setAdapter(randomRecipeAdapter);
         }
 
@@ -97,7 +97,8 @@ public class RandomRecipesOptionFragment extends Fragment {
             bundle.putString("id", id);
             Fragment RecipeDetailsFragment = new RecipeDetailsFragment();
             RecipeDetailsFragment.setArguments(bundle);
-            FragmentTransaction fragmentTrans = getActivity().getSupportFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTrans = getActivity().getSupportFragmentManager()
+                    .beginTransaction();
             fragmentTrans.replace(R.id.frame_layout, RecipeDetailsFragment);
             fragmentTrans.commit();
 

@@ -12,13 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mypantry.Adapters.ComplexRecipeAdapter;
 import com.example.mypantry.Listeners.ComplexRecipeResponseListener;
+import com.example.mypantry.Listeners.RecipeClickListener;
 import com.example.mypantry.Models.ComplexRecipeApiResponse;
 import com.example.mypantry.R;
+import com.example.mypantry.RecipeDetailsFragment;
 import com.example.mypantry.RequestManager;
 
 import java.util.ArrayList;
@@ -38,11 +41,12 @@ public class ComplexRecipeSearchOptionFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container, Bundle savedInstanceState) {
+                             @Nullable ViewGroup container, Bundle savedInstanceState)
+    {
         super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
 
-        View view = inflater.inflate(R.layout.fragment_recipes, container,false);
+        View view = inflater.inflate(R.layout.fragment_recipes, container, false);
 
         dialog = new ProgressDialog(getActivity());
         dialog.setTitle("Loading...");
@@ -75,7 +79,8 @@ public class ComplexRecipeSearchOptionFragment extends Fragment {
             recyclerView = requireView().findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-            complexRecipeAdapter = new ComplexRecipeAdapter(getActivity(), response.results);
+            complexRecipeAdapter = new ComplexRecipeAdapter(getActivity(),
+                    response.results, recipeClickListener);
             recyclerView.setAdapter(complexRecipeAdapter);
         }
 
@@ -85,6 +90,19 @@ public class ComplexRecipeSearchOptionFragment extends Fragment {
         }
     };
 
+    private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
+        @Override
+        public void onRecipeClicked(String id) {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", id);
+            Fragment RecipeDetailsFragment = new RecipeDetailsFragment();
+            RecipeDetailsFragment.setArguments(bundle);
+            FragmentTransaction fragmentTrans = getActivity().getSupportFragmentManager()
+                    .beginTransaction();
+            fragmentTrans.replace(R.id.frame_layout, RecipeDetailsFragment);
+            fragmentTrans.commit();
 
+        }
+    };
 
 }
