@@ -13,4 +13,7 @@
     <color name="myblack">#2c2e30</color>
     <color name="myblue">#5e88a6</color>
     <color name="mypink">#c7afa9</color>
+    <color name="mygold">#e7ca1c</color>
+    <color name="mygreen">#289f1a</color>
+    <color name="mygrey">#a9a9a9</color>
 </resources>

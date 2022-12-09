@@ -13,16 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.fragment.app.Fragment;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.mypantry.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -49,13 +44,9 @@ public class PantryMainFragment extends Fragment {
     private String details;
 
     @Override
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.pantry_main_activity, container, false);
-
-        //getSupportActionBar().setTitle("");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -68,7 +59,6 @@ public class PantryMainFragment extends Fragment {
 
         //set up a loader
         loader = new ProgressDialog(getActivity());
-
 
         mUser = mAuth.getCurrentUser();
         onlineUserID = mUser.getUid();
@@ -90,7 +80,6 @@ public class PantryMainFragment extends Fragment {
     private void addPantryItem() {
         AlertDialog.Builder myDialog = new AlertDialog.Builder(getActivity()); //create a alert dialog
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-
 
         // use the input_file layout as the view
         View myView = inflater.inflate(R.layout.pantry_add_item_activity, null);
@@ -125,9 +114,7 @@ public class PantryMainFragment extends Fragment {
                 String mPantryItem = pantryItem.getText().toString().trim();
                 String mDetails = description.getText().toString().trim();
                 String mdate = date.getText().toString().trim();
-                String id = reference.push().getKey();//get the key for each data set
-
-//                String date = DateFormat.getDateInstance().format(new Date());
+                String id = reference.push().getKey(); // get the key for each data set
 
                 if (TextUtils.isEmpty(mPantryItem)) {
                     pantryItem.setError("Pantry Item Required");

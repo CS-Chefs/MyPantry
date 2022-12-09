@@ -1,7 +1,6 @@
 package com.example.mypantry;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mypantry.Profile.LoginActivity;
-import com.google.firebase.FirebaseApp;
 
 public class splash_activity extends AppCompatActivity {
 

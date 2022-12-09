@@ -24,7 +24,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //private Toolbar toolbar;
     private EditText loginEmail, loginPwd;
     private Button loginBtn;
     private TextView loginQn;
@@ -34,29 +33,25 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener authStateListener;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        //toolbar = findViewById(R.id.loginToolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("");
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
 
-//        //if logged in already go to home
+        // if logged in already go to home
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = mAuth.getCurrentUser();
-//                if (user != null){
-//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                }
+                if (user != null){
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         };
 
@@ -105,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                             loader.dismiss();
                         }
                     });
-
                 }
             }
         });

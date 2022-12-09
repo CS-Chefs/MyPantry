@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".GroceryList.GroceryMainFragment"
     android:orientation="vertical"
-    android:background="@drawable/background_design">
+    android:background="@drawable/background_design_grocery">
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp">
-        android:layout_marginTop="10dp" >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -32,7 +31,7 @@
             android:src="@drawable/ic_baseline_add_24"
             app:backgroundTint="@color/mywhite"
             tools:ignore="SpeakableTextPresentCheck" />
-        
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

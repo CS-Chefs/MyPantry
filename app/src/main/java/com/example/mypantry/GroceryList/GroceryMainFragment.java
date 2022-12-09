@@ -179,7 +179,7 @@ public class GroceryMainFragment extends Fragment {
                         groceryItem = model.getGroceryItem();
                         details = model.getDetails();
                         date = model.getDate();
-                        updategroceryItem();
+                        updateGroceryItem();
                     }
                 });
             }
@@ -220,7 +220,7 @@ public class GroceryMainFragment extends Fragment {
         }
     }
 
-    private void updategroceryItem(){
+    private void updateGroceryItem(){
         AlertDialog.Builder myDialog = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.grocery_item_update_activity, null);
@@ -291,25 +291,4 @@ public class GroceryMainFragment extends Fragment {
 
         dialog.show();
     }
-    /*
-    //set up the log out function
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.logout:
-                mAuth.signOut();
-                Intent intent = new Intent(groceryActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    */
 }
