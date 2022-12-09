@@ -1,19 +1,38 @@
 package com.example.mypantry.GroceryList;
 
-public class GroceryItem {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private String groceryItem, details, id, date;
+public class GroceryItem implements Parcelable {
+
+    private String pantryItem, groceryItem, id;
 
     public GroceryItem(){
 
     }
 
-    public GroceryItem(String groceryItem, String details, String id, String date) {
+    public GroceryItem(String groceryItem, String id) {
         this.groceryItem = groceryItem;
-        this.details = details;
         this.id = id;
-        this.date = date;
     }
+
+
+    protected GroceryItem(Parcel in) {
+        groceryItem = in.readString();
+        id = in.readString();
+    }
+
+    public static final Creator<GroceryItem> CREATOR = new Creator<GroceryItem>() {
+        @Override
+        public GroceryItem createFromParcel(Parcel in) {
+            return new GroceryItem(in);
+        }
+
+        @Override
+        public GroceryItem[] newArray(int size) {
+            return new GroceryItem[size];
+        }
+    };
 
     public String getGroceryItem() {
         return groceryItem;
@@ -21,14 +40,6 @@ public class GroceryItem {
 
     public void setGroceryItem(String groceryItem) {
         this.groceryItem = groceryItem;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
     }
 
     public String getId() {
@@ -39,11 +50,14 @@ public class GroceryItem {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(groceryItem);
+        parcel.writeString(id);
     }
 }

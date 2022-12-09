@@ -43,7 +43,7 @@
             android:layout_margin="10dp"
             android:fontFamily="@font/basic"
             android:hint="New Password"
-            android:textColorHint="#4a4a4a"
+            android:textColorHint="#FFFFFF"
             android:minHeight="48dp"
             android:textSize="16dp"
             app:backgroundTint='#a9adb0' />
@@ -55,7 +55,7 @@
             android:layout_margin="10dp"
             android:fontFamily="@font/basic"
             android:hint="Confirm New Password"
-            android:textColorHint="#4a4a4a"
+            android:textColorHint="#FFFFFF"
             android:minHeight="48dp"
             android:textSize="16dp"
             app:backgroundTint='#a9adb0' />

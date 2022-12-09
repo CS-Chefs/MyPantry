@@ -51,12 +51,12 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
-                        android:fontFamily="@font/basic"
+                        android:fontFamily="@font/baskervville_italic"
                         android:maxLines="1"
                         android:padding="5dp"
                         android:text="Grocery Item"
                         android:textColor="@color/myblack"
-                        android:textSize="18sp"
+                        android:textSize="21dp"
                         android:textStyle="bold" />
 
 
@@ -65,37 +65,12 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2">
-
-                    <TextView
-                        android:id="@+id/dateTv"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/basic"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Dec 2023"
-                        android:textColor="#ba6056"
-                        android:textSize="15sp" />
-
-
-                </RelativeLayout>
+                    android:layout_weight="2"/>
 
 
             </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/detailsTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:fontFamily="@font/basic"
-                android:maxLines="3"
-                android:padding="5dp"
-                android:text="Details"
-                android:textColor="#71757a"
-                android:textSize="15sp" />
         </LinearLayout>
 
     </LinearLayout>

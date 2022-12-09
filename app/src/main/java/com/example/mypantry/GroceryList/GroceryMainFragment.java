@@ -1,7 +1,9 @@
 package com.example.mypantry.GroceryList;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,6 +23,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.mypantry.Pantry.PantryItem;
+import com.example.mypantry.Pantry.PantryMainFragment;
 import com.example.mypantry.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -37,14 +41,14 @@ public class GroceryMainFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
     private DatabaseReference reference;
+    private DatabaseReference reference2;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private String onlineUserID;
     private ProgressDialog loader;
     private String key = "";
     private String groceryItem;
-    private String date;
-    private String details;
+
 
     @Override
 
@@ -71,6 +75,7 @@ public class GroceryMainFragment extends Fragment {
         mUser = mAuth.getCurrentUser();
         onlineUserID = mUser.getUid();
         reference = FirebaseDatabase.getInstance().getReference().child("Grocery Items").child(onlineUserID);
+        reference2 = FirebaseDatabase.getInstance().getReference().child("Pantry Items").child(onlineUserID);
 
         floatingActionButton = view.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +84,7 @@ public class GroceryMainFragment extends Fragment {
                 addGroceryItem();
             }
         });
+
 
         return view;
 
@@ -102,8 +108,6 @@ public class GroceryMainFragment extends Fragment {
 
         // initialize the texts and buttons
         final EditText groceryItem = myView.findViewById(R.id.item);
-        final EditText description = myView.findViewById(R.id.description);
-        final EditText date = myView.findViewById(R.id.date);
 
         Button save = myView.findViewById(R.id.saveBtn);
         Button cancel = myView.findViewById(R.id.CancelBtn);
@@ -121,8 +125,6 @@ public class GroceryMainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String mGroceryItem = groceryItem.getText().toString().trim();
-                String mDetails = description.getText().toString().trim();
-                String mdate = date.getText().toString().trim();
                 String id = reference.push().getKey();//get the key for each data set
 
 //                String date = DateFormat.getDateInstance().format(new Date());
@@ -137,7 +139,7 @@ public class GroceryMainFragment extends Fragment {
                     loader.show();
 
                     // use the Model class to pack up the data
-                    GroceryItem model = new GroceryItem(mGroceryItem, mDetails, id, mdate);
+                    GroceryItem model = new GroceryItem(mGroceryItem, id);
 
                     // update the data to Firebase
                     reference.child(id).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -168,19 +170,51 @@ public class GroceryMainFragment extends Fragment {
         FirebaseRecyclerAdapter<GroceryItem, MyViewHolder> adapter = new FirebaseRecyclerAdapter<GroceryItem, MyViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull GroceryItem model) {
-                holder.setDate(model.getDate());
                 holder.setgroceryItem(model.getGroceryItem());
-                holder.setDesc(model.getDetails());
 
+                // Tap grocery item and pulls update dialog box
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         key = getRef(position).getKey();
                         groceryItem = model.getGroceryItem();
-                        details = model.getDetails();
-                        date = model.getDate();
                         updateGroceryItem();
                     }
+                });
+
+                // Hold down grocery item and checks off item
+                holder.mView.setOnLongClickListener(new View.OnLongClickListener()
+                {
+                    @Override
+                    public boolean onLongClick(View view) {
+
+                        key = getRef(position).getKey();
+                        groceryItem = model.getGroceryItem();
+                        PantryItem model = new PantryItem(groceryItem, "", key, "");
+
+                        // Adds item to Pantry
+                        reference2.child(key).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>()
+                        {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(getActivity(), "Ingredient has been transferred to Pantry", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        // Removes item from grocery
+                        reference.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> groceryItem) {
+                                if (groceryItem.isSuccessful()){
+                                    Toast.makeText(getActivity(), "Ingredient has been checked", Toast.LENGTH_SHORT).show();
+                                } else{
+                                    String error = groceryItem.getException().toString();
+                                    Toast.makeText(getActivity(), "Delete failed :(" + error, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    return false;
+                }
                 });
             }
 
@@ -209,15 +243,7 @@ public class GroceryMainFragment extends Fragment {
             itemTextView.setText(task);
         }
 
-        public void setDesc(String desc){
-            TextView descTextView = mView.findViewById(R.id.detailsTv);
-            descTextView.setText(desc);
-        }
 
-        public void setDate(String date){
-            TextView dateTextView = mView.findViewById(R.id.dateTv);
-            dateTextView.setText(date);
-        }
     }
 
     private void updateGroceryItem(){
@@ -231,17 +257,9 @@ public class GroceryMainFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         EditText mItem = view.findViewById(R.id.mEditedItem);
-        EditText mDetails = view.findViewById(R.id.mEditedDetails);
-        EditText mDate = view.findViewById(R.id.mEditedDate);
 
         mItem.setText(groceryItem);
         mItem.setSelection(groceryItem.length());
-
-        mDetails.setText(details);
-        mDetails.setSelection(details.length());
-
-        mDate.setText(date);
-        mDate.setSelection(date.length());
 
         Button deleteBtn = view.findViewById(R.id.btnDelete);
         Button updateBtn = view.findViewById(R.id.btnUpdate);
@@ -250,10 +268,8 @@ public class GroceryMainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 groceryItem = mItem.getText().toString().trim();
-                details = mDetails.getText().toString().trim();
-                date = mDate.getText().toString().trim();
 
-                GroceryItem model = new GroceryItem(groceryItem, details, key, date);
+                GroceryItem model = new GroceryItem(groceryItem, key);
 
                 reference.child(key).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
