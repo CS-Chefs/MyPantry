@@ -4,14 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MyPantry/app/src/main/res/drawable/background_design.xml" value="0.1605" />
+        <entry key="..\:/MyPantry/app/src/main/res/drawable/background_design_grocery.xml" value="0.1" />
         <entry key="..\:/MyPantry/app/src/main/res/drawable/background_header_desgin.xml" value="0.1605" />
         <entry key="..\:/MyPantry/app/src/main/res/drawable/background_home.xml" value="0.1605" />
         <entry key="..\:/MyPantry/app/src/main/res/drawable/background_newpantryitem.xml" value="0.1" />
+        <entry key="..\:/MyPantry/app/src/main/res/drawable/delete.xml" value="0.1115" />
         <entry key="..\:/MyPantry/app/src/main/res/drawable/ic_like.xml" value="0.1605" />
         <entry key="..\:/MyPantry/app/src/main/res/drawable/ic_pantry.xml" value="0.1605" />
         <entry key="..\:/MyPantry/app/src/main/res/drawable/ic_profile.xml" value="0.105" />
         <entry key="..\:/MyPantry/app/src/main/res/drawable/ic_servings.xml" value="0.1605" />
         <entry key="..\:/MyPantry/app/src/main/res/drawable/ic_time.xml" value="0.1605" />
+        <entry key="..\:/MyPantry/app/src/main/res/drawable/inputs.xml" value="0.1" />
         <entry key="..\:/MyPantry/app/src/main/res/layout/activity_create_account.xml" value="0.18" />
         <entry key="..\:/MyPantry/app/src/main/res/layout/activity_login.xml" value="0.18" />
         <entry key="..\:/MyPantry/app/src/main/res/layout/activity_main.xml" value="0.1" />
