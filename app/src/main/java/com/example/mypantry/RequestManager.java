@@ -35,7 +35,7 @@ public class RequestManager {
         CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
         Call<RandomRecipeApiResponse> call =
                 callRandomRecipes.callRandomRecipe(context.getString(R.string.api_key),
-                "100",
+                "50",
                 tags);
 
         call.enqueue(new Callback<RandomRecipeApiResponse>() {
@@ -88,7 +88,7 @@ public class RequestManager {
         CallComplexRecipes callComplexRecipes = retrofit.create(CallComplexRecipes.class);
         Call<ComplexRecipeApiResponse> call =
                 callComplexRecipes.callComplexRecipe(context.getString(R.string.api_key),
-                "100", "True", "True", tags);
+                "50", "True", "True", tags);
 
         call.enqueue(new Callback<ComplexRecipeApiResponse>() {
             @Override
