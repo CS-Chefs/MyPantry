@@ -15,7 +15,7 @@
         android:fontFamily="@font/basic"
         android:gravity="center"
         android:padding="10dp"
-        android:text="MyPantry Profile Information"
+        android:text="Profile Information"
         android:textColor="@color/mywhite"
         android:textSize="16sp"
         android:textStyle="bold" />
