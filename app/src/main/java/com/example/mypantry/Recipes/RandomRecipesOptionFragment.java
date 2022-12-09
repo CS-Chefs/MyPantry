@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +18,10 @@ import android.widget.Toast;
 
 import com.example.mypantry.Adapters.RandomRecipeAdapter;
 import com.example.mypantry.Listeners.RandomRecipeResponseListener;
+import com.example.mypantry.Listeners.RecipeClickListener;
 import com.example.mypantry.Models.RandomRecipeApiResponse;
 import com.example.mypantry.R;
+import com.example.mypantry.RecipeDetailsFragment;
 import com.example.mypantry.RequestManager;
 
 import java.util.ArrayList;
@@ -39,7 +41,8 @@ public class RandomRecipesOptionFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container, Bundle savedInstanceState) {
+                             @Nullable ViewGroup container, Bundle savedInstanceState)
+    {
         super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
 
@@ -62,12 +65,10 @@ public class RandomRecipesOptionFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) { return false;}
         });
-
         manager = new RequestManager(getActivity());
         manager.getRandomRecipes(randomRecipeResponseListener, tags);
         dialog.show();
         return view;
-
     }
 
     private final RandomRecipeResponseListener randomRecipeResponseListener =
@@ -78,7 +79,8 @@ public class RandomRecipesOptionFragment extends Fragment {
             recyclerView = requireView().findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-            randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes);
+            randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes
+                    , recipeClickListener);
             recyclerView.setAdapter(randomRecipeAdapter);
         }
 
@@ -88,6 +90,19 @@ public class RandomRecipesOptionFragment extends Fragment {
         }
     };
 
+    private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
+        @Override
+        public void onRecipeClicked(String id) {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", id);
+            Fragment RecipeDetailsFragment = new RecipeDetailsFragment();
+            RecipeDetailsFragment.setArguments(bundle);
+            FragmentTransaction fragmentTrans = getActivity().getSupportFragmentManager()
+                    .beginTransaction();
+            fragmentTrans.replace(R.id.frame_layout, RecipeDetailsFragment);
+            fragmentTrans.commit();
 
+        }
+    };
 
 }
