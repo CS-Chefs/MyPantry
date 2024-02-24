@@ -30,3 +30,8 @@
 - Freshness Timer/Expiration
 - Calorie Counter (based off dish)
 - Wattage Converter
+
+# Demos
+https://youtu.be/Yo3Oi2NGB-U
+https://youtu.be/t0bNF2IlukY
+https://www.youtube.com/watch?v=zXtBstDfM2o
